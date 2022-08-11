@@ -1,0 +1,50 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;700&display=swap" rel="stylesheet">
+    title Result Page
+    link(rel="stylesheet", href="/css/result.css")
+    script(src="/js/result.js" defer) 
+  body 
+    header 
+      img(src="/img/techu_logo.png", alt="technical university logo" id="logo")
+      h1 Voting Results 
+      form(action="/nomineeresult", method="post" id="nominee_result")
+        .form_group 
+          label(for="category_name") Select Category:
+          select(name="category_name" id="category_name") 
+            option(value='none') ~ 
+            each category in CATEGORIES 
+              option(value=`${category.categoryName}`) #{category.categoryName.split("-").join(" ").toUpperCase()}
+        .form_group 
+          label(for="nominee_name") Select Nominee Name: 
+          select(name="nominee_name" id="nominee_name")
+            option(value="none") ~
+        button(type="submit") Fetch Result
+
+
+    div(class="modal_container")
+      div(class="modal")
+        h2(id="modal_text") Please select a category and a nominee.
+        button(id="close_modal") Close  
+
+    .processor 
+      .spinner 
+      p.processor_text Processing
+        span.a .
+        span.b .
+        span.c .
+    
+    .success_container 
+      .successor 
+        img(src="/img/success.png", alt="success")
+        p(id="nominee") 
+        p(id="score") 
+        button(id="close_success") Close
+
+    button#back Go Back
